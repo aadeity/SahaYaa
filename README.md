@@ -38,7 +38,6 @@
 - [🎥 Demo Video](#-demo-video)
 - [🏗️ Architecture](#️-architecture)
 - [🗺️ Roadmap](#️-roadmap)
-- [🤝 Contributing](#-contributing)
 - [📄 License](#-license)
 - [🙏 Acknowledgements](#-acknowledgements)
 
@@ -199,7 +198,7 @@ Open **3 terminals** for:
 
 **Terminal 1: Action Server**  
 ```
-rasa run actions
+ rasa run actions -p 5055
 ```
 
 **Terminal 2: Rasa Server**  
@@ -209,9 +208,15 @@ rasa run --enable-api --cors "*" -p 5005
 
 **Terminal 3: Voice API**  
 ```
-python voice_api.py
+uvicorn app.main:app --reload --port 8001
 ```
-
+```
+uvicorn voice_api:app --reload --port 8002
+```
+**Terminal 4**  
+```
+python -m http.server 3000
+```
 ### 🌐 Access the App
 
 [http://127.0.0.1:3000/#chat](http://127.0.0.1:3000/#chat)
@@ -243,26 +248,6 @@ python voice_api.py
 🗣️ You: "एक दो तीन चार पांच छह"
 🤖 Bot: "OTP सत्यापित। 6000 रुपये सफलतापूर्वक भेजे गए।"
 </details>
-
-### 🎥 Demo GIF/Video Embedding
-
-**Markdown GIF:**  
-``
-
-**Embed MP4:**
-```html
-<video width="600" controls>
-  <source src="https://your-server.com/sahayaa-demo.mp4" type="video/mp4">
-  Your browser does not support the video tag.
-</video>
-```
-
-**YouTube Embed:**  
-```html
-<iframe width="560" height="315" src="https://www.youtube.com/embed/YOUR_VIDEO_ID" frameborder="0" allowfullscreen></iframe>
-```
-
-***
 
 ## 🎥 Demo Video
 <div align="center">
@@ -297,13 +282,7 @@ SECURE BANKING API (Balance, Transfer)
 ✅ Multilingual ASR  
 ✅ Voice-first web interface  
 ✅ OTP-based security for high-value transactions  
-✅ Real-time TTS responses  
-🚧 Session-based OTP flow  
-📱 Mobile app (React Native)  
-🌙 Offline mode support  
-📊 Analytics dashboard  
-🔗 Integration with UPI  
-🎯 Personalized banking recommendations  
+✅ Real-time TTS responses   
 🌍 Support for 7 Indian languages  
 
 ***
