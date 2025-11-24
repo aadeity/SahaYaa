@@ -1,0 +1,27 @@
+# SahaYaa - Voice Banking Assistant Requirements
+
+# Rasa
+rasa==3.6.13
+rasa-sdk==3.6.2
+
+# NLP & ASR
+transformers==4.35.0
+torch==2.1.0
+torchaudio==2.1.0
+
+# Speech Processing
+gtts==2.4.0
+pydub==0.25.1
+
+# Web Framework
+fastapi==0.104.1
+uvicorn[standard]==0.24.0
+python-multipart==0.0.6
+
+# HTTP Requests
+requests==2.31.0
+httpx==0.25.1
+
+# Utilities
+python-dotenv==1.0.0
+pyyaml==6.0.1
