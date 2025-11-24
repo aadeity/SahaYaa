@@ -1,0 +1,1072 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>SahaYaa – Voice Banking Assistant</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <style>
+    :root {
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      --hero-bg-start: #f8f5ff;
+      --hero-bg-end: #ffffff;
+      --primary-purple: #a855f7;
+      --primary-blue: #38bdf8;
+      --primary-teal: #14b8a6;
+      --accent-pink: #ec4899;
+      --text-dark: #1f2937;
+      --text-muted: #6b7280;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      background: linear-gradient(180deg, #f8f5ff 0%, #ffffff 50%, #f0f9ff 100%);
+    }
+
+    /* Hero section styles */
+    .hero-section {
+      min-height: 100vh;
+      background: linear-gradient(180deg, var(--hero-bg-start) 0%, var(--hero-bg-end) 100%);
+      display: flex;
+      flex-direction: column;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .nav-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 20px 60px;
+      background: rgba(255, 255, 255, 0.7);
+      backdrop-filter: blur(10px);
+      border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+
+    .nav-logo {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 1.5rem;
+      font-weight: 700;
+      color: var(--text-dark);
+    }
+
+    .nav-logo-icon {
+      width: 32px;
+      height: 32px;
+      background: linear-gradient(135deg, var(--primary-teal), var(--primary-blue));
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      font-weight: bold;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 32px;
+      align-items: center;
+    }
+
+    .nav-links a {
+      color: var(--text-muted);
+      text-decoration: none;
+      font-size: 0.95rem;
+      transition: color 0.2s;
+    }
+
+    .nav-links a:hover {
+      color: var(--primary-teal);
+    }
+
+    .nav-cta {
+      padding: 10px 24px;
+      background: linear-gradient(135deg, var(--primary-teal), var(--primary-blue));
+      color: white;
+      border-radius: 999px;
+      text-decoration: none;
+      font-size: 0.9rem;
+      font-weight: 600;
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+
+    .nav-cta:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 10px 25px rgba(20, 184, 166, 0.3);
+    }
+
+    .hero-content {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 60px 40px;
+      position: relative;
+      z-index: 2;
+    }
+
+    .flower-container {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 600px;
+      height: 600px;
+      z-index: 1;
+    }
+
+    .flower {
+      position: relative;
+      width: 100%;
+      height: 100%;
+      animation: floatRotate 20s ease-in-out infinite;
+    }
+
+    .petal {
+      position: absolute;
+      width: 200px;
+      height: 300px;
+      top: 50%;
+      left: 50%;
+      transform-origin: 50% 100%;
+      opacity: 0;
+      animation: bloom 2.5s ease-out forwards;
+    }
+
+    .petal::before {
+      content: "";
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(135deg, 
+        rgba(168, 85, 247, 0.25), 
+        rgba(56, 189, 248, 0.3), 
+        rgba(236, 72, 153, 0.2)
+      );
+      border-radius: 50% 50% 50% 50% / 60% 60% 40% 40%;
+      backdrop-filter: blur(2px);
+      box-shadow: 
+        0 20px 60px rgba(168, 85, 247, 0.3),
+        inset 0 0 40px rgba(255, 255, 255, 0.5);
+    }
+
+    .petal:nth-child(1) { transform: translate(-50%, -50%) rotate(0deg); animation-delay: 0s; }
+    .petal:nth-child(2) { transform: translate(-50%, -50%) rotate(45deg); animation-delay: 0.15s; }
+    .petal:nth-child(3) { transform: translate(-50%, -50%) rotate(90deg); animation-delay: 0.3s; }
+    .petal:nth-child(4) { transform: translate(-50%, -50%) rotate(135deg); animation-delay: 0.45s; }
+    .petal:nth-child(5) { transform: translate(-50%, -50%) rotate(180deg); animation-delay: 0.6s; }
+    .petal:nth-child(6) { transform: translate(-50%, -50%) rotate(225deg); animation-delay: 0.75s; }
+    .petal:nth-child(7) { transform: translate(-50%, -50%) rotate(270deg); animation-delay: 0.9s; }
+    .petal:nth-child(8) { transform: translate(-50%, -50%) rotate(315deg); animation-delay: 1.05s; }
+
+    .flower-center {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 120px;
+      height: 120px;
+      background: radial-gradient(circle, 
+        rgba(56, 189, 248, 0.6), 
+        rgba(168, 85, 247, 0.4)
+      );
+      border-radius: 50%;
+      box-shadow: 
+        0 0 60px rgba(56, 189, 248, 0.6),
+        inset 0 0 30px rgba(255, 255, 255, 0.8);
+      animation: pulse 2s ease-in-out infinite;
+    }
+
+    @keyframes bloom {
+      0% {
+        transform: translate(-50%, -50%) rotate(var(--rotation, 0deg)) scale(0.1);
+        opacity: 0;
+      }
+      100% {
+        transform: translate(-50%, -50%) rotate(var(--rotation, 0deg)) scale(1);
+        opacity: 1;
+      }
+    }
+
+    @keyframes floatRotate {
+      0%, 100% {
+        transform: translate(-50%, -50%) rotate(0deg) scale(1);
+      }
+      50% {
+        transform: translate(-50%, -50%) rotate(180deg) scale(1.05);
+      }
+    }
+
+    @keyframes pulse {
+      0%, 100% {
+        transform: translate(-50%, -50%) scale(1);
+        opacity: 0.8;
+      }
+      50% {
+        transform: translate(-50%, -50%) scale(1.1);
+        opacity: 1;
+      }
+    }
+
+    .hero-text {
+      text-align: center;
+      position: relative;
+      z-index: 3;
+      animation: fadeInUp 1s ease-out 1.5s backwards;
+    }
+
+    .hero-headline {
+      font-size: 3.5rem;
+      font-weight: 700;
+      color: var(--text-dark);
+      margin: 0 0 16px 0;
+      line-height: 1.2;
+    }
+
+    .hero-subheadline {
+      font-size: 1.15rem;
+      color: var(--text-muted);
+      max-width: 600px;
+      margin: 0 auto 32px;
+      line-height: 1.6;
+    }
+
+    .hero-features {
+      display: flex;
+      gap: 16px;
+      justify-content: center;
+      font-size: 0.9rem;
+      color: var(--text-muted);
+      margin-bottom: 40px;
+    }
+
+    .hero-features span {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .hero-features span::before {
+      content: "●";
+      color: var(--primary-teal);
+    }
+
+    .hero-cta-button {
+      padding: 16px 48px;
+      background: linear-gradient(135deg, #3b82f6, #2563eb);
+      color: white;
+      border: none;
+      border-radius: 999px;
+      font-size: 1.1rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.3s;
+      box-shadow: 0 10px 30px rgba(59, 130, 246, 0.3);
+      text-decoration: none;
+      display: inline-block;
+    }
+
+    .hero-cta-button:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 15px 40px rgba(59, 130, 246, 0.4);
+    }
+
+    .voice-indicator-hero {
+      margin-top: 40px;
+      width: 80px;
+      height: 80px;
+      position: relative;
+    }
+
+    .voice-ring {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      border-radius: 50%;
+      border: 3px solid var(--primary-teal);
+      animation: breathe 2s ease-in-out infinite;
+    }
+
+    @keyframes breathe {
+      0%, 100% {
+        opacity: 0.5;
+        transform: scale(1);
+      }
+      50% {
+        opacity: 1;
+        transform: scale(1.1);
+      }
+    }
+
+    @keyframes fadeInUp {
+      from {
+        opacity: 0;
+        transform: translateY(30px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    @media (max-width: 900px) {
+      .nav-header {
+        padding: 16px 24px;
+        flex-wrap: wrap;
+      }
+      .nav-links {
+        display: none;
+      }
+      .flower-container {
+        width: 400px;
+        height: 400px;
+      }
+      .hero-headline {
+        font-size: 2.5rem;
+      }
+      .hero-subheadline {
+        font-size: 1rem;
+        padding: 0 20px;
+      }
+    }
+
+    /* Chat section styles */
+    .chat-section {
+      min-height: 100vh;
+      background: linear-gradient(180deg, #f8f5ff 0%, #ffffff 50%, #f0f9ff 100%);
+      display: flex;
+      align-items: stretch;
+      justify-content: center;
+      padding: 24px;
+      position: relative;
+    }
+
+    .chat-section::before {
+      content: "";
+      position: absolute;
+      top: 10%;
+      left: 10%;
+      width: 400px;
+      height: 400px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(168, 85, 247, 0.12), transparent 70%);
+      filter: blur(60px);
+      animation: float1 20s ease-in-out infinite;
+      pointer-events: none;
+    }
+
+    .chat-section::after {
+      content: "";
+      position: absolute;
+      bottom: 10%;
+      right: 15%;
+      width: 350px;
+      height: 350px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(56, 189, 248, 0.1), transparent 70%);
+      filter: blur(50px);
+      animation: float2 18s ease-in-out infinite;
+      pointer-events: none;
+    }
+
+    @keyframes float1 {
+      0%, 100% { transform: translate(0, 0); }
+      50% { transform: translate(30px, -30px); }
+    }
+
+    @keyframes float2 {
+      0%, 100% { transform: translate(0, 0); }
+      50% { transform: translate(-40px, 20px); }
+    }
+
+    .app-shell {
+      max-width: 1180px;
+      width: 100%;
+      background: rgba(255, 255, 255, 0.5);
+      backdrop-filter: blur(20px) saturate(180%);
+      border: 1px solid rgba(255, 255, 255, 0.4);
+      border-radius: 28px;
+      padding: 24px;
+      box-shadow:
+        0 8px 32px rgba(168, 85, 247, 0.12),
+        0 2px 8px rgba(56, 189, 248, 0.08);
+      display: grid;
+      grid-template-columns: minmax(0, 3fr) minmax(0, 2.2fr);
+      gap: 24px;
+      position: relative;
+      z-index: 1;
+    }
+
+    @media (max-width: 900px) {
+      .app-shell {
+        grid-template-columns: 1fr;
+        padding: 18px;
+      }
+    }
+
+    .left, .right {
+      position: relative;
+      z-index: 1;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    h1 {
+      font-size: 1.7rem;
+      margin: 0;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      letter-spacing: 0.03em;
+      color: var(--text-dark);
+    }
+
+    .badge {
+      font-size: 0.7rem;
+      padding: 4px 12px;
+      border-radius: 999px;
+      background: linear-gradient(135deg, rgba(20, 184, 166, 0.15), rgba(56, 189, 248, 0.15));
+      color: #0d9488;
+      border: 1px solid rgba(20, 184, 166, 0.4);
+      text-transform: uppercase;
+      font-weight: 600;
+    }
+
+    .subtitle {
+      font-size: 0.9rem;
+      color: var(--text-muted);
+      margin-top: 4px;
+    }
+
+    .subtitle span {
+      color: var(--primary-teal);
+      font-weight: 600;
+    }
+
+    .pipeline-chip-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      margin-top: 10px;
+      font-size: 0.7rem;
+    }
+
+    .pipeline-chip {
+      padding: 4px 9px;
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.6);
+      border: 1px solid rgba(20, 184, 166, 0.3);
+      color: var(--text-dark);
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      transition: all 0.3s ease;
+    }
+
+    .pipeline-chip:hover {
+      background: rgba(255, 255, 255, 0.8);
+      transform: translateY(-1px);
+    }
+
+    .pipeline-chip span {
+      width: 6px;
+      height: 6px;
+      border-radius: 999px;
+      background: #22c55e;
+      box-shadow: 0 0 8px rgba(34, 197, 94, 0.5);
+    }
+
+    .card {
+      background: rgba(255, 255, 255, 0.7);
+      backdrop-filter: blur(20px) saturate(180%);
+      border-radius: 20px;
+      padding: 16px 18px;
+      border: 1px solid rgba(255, 255, 255, 0.3);
+      box-shadow:
+        0 8px 32px rgba(168, 85, 247, 0.12),
+        0 2px 8px rgba(56, 189, 248, 0.08);
+      transition: all 0.3s ease;
+    }
+
+    .card:hover {
+      box-shadow:
+        0 12px 40px rgba(168, 85, 247, 0.15),
+        0 4px 12px rgba(56, 189, 248, 0.1);
+      transform: translateY(-2px);
+    }
+
+    .card-subtle {
+      background: rgba(255, 255, 255, 0.6);
+    }
+
+    .mic-wrapper {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 14px;
+      padding: 18px 16px 18px;
+    }
+
+    .mic-button {
+      width: 88px;
+      height: 88px;
+      border-radius: 999px;
+      border: none;
+      outline: none;
+      background: linear-gradient(135deg, #14b8a6, #06b6d4);
+      box-shadow: 0 8px 24px rgba(20, 184, 166, 0.3);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+
+    .mic-button svg {
+      width: 32px;
+      height: 32px;
+      fill: white;
+    }
+
+    .mic-button:hover {
+      transform: translateY(-2px) scale(1.05);
+      box-shadow: 0 12px 32px rgba(20, 184, 166, 0.4);
+    }
+
+    .mic-button.recording {
+      background: linear-gradient(135deg, #ec4899, #f43f5e);
+      animation: recordingPulse 1.5s ease-in-out infinite;
+    }
+
+    @keyframes recordingPulse {
+      0%, 100% {
+        box-shadow: 0 0 0 0 rgba(236, 72, 153, 0.4);
+      }
+      50% {
+        box-shadow: 0 0 0 20px rgba(236, 72, 153, 0);
+      }
+    }
+
+    .mic-label {
+      font-size: 0.88rem;
+      color: var(--text-muted);
+      margin-top: 4px;
+      font-weight: 500;
+    }
+
+    .lang-select {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 0.82rem;
+      margin-top: 6px;
+      padding: 6px 10px;
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.6);
+      border: 1px solid rgba(168, 85, 247, 0.3);
+      transition: all 0.3s ease;
+    }
+
+    .lang-select:hover {
+      background: rgba(255, 255, 255, 0.8);
+    }
+
+    .lang-select span {
+      color: var(--text-muted);
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      font-size: 0.7rem;
+      font-weight: 600;
+    }
+
+    select {
+      background: rgba(255, 255, 255, 0.9);
+      color: var(--text-dark);
+      border-radius: 16px;
+      border: 1px solid rgba(168, 85, 247, 0.2);
+      padding: 4px 10px;
+      font-size: 0.82rem;
+      outline: none;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+
+    select:focus {
+      border-color: var(--primary-purple);
+      box-shadow: 0 0 0 3px rgba(168, 85, 247, 0.1);
+    }
+
+    .waveform {
+      margin-top: 12px;
+      height: 44px;
+      width: 100%;
+      display: flex;
+      align-items: flex-end;
+      gap: 4px;
+    }
+
+    .bar {
+      flex: 1;
+      border-radius: 999px;
+      background: linear-gradient(to top, rgba(168, 85, 247, 0.2), rgba(56, 189, 248, 0.3));
+      transform: scaleY(0.18);
+      transform-origin: bottom;
+      opacity: 0.5;
+      transition: transform 0.12s ease, opacity 0.12s ease, background 0.18s ease;
+    }
+
+    .bar.active {
+      transform: scaleY(1);
+      opacity: 1;
+      background: linear-gradient(to top, #a855f7, #38bdf8);
+    }
+
+    .status {
+      font-size: 0.78rem;
+      color: var(--text-muted);
+      margin-top: 8px;
+      font-weight: 500;
+    }
+
+    .error {
+      color: #ef4444;
+      font-size: 0.8rem;
+      min-height: 1em;
+      font-weight: 500;
+    }
+
+    .transcript-block {
+      font-size: 0.9rem;
+      line-height: 1.4;
+    }
+
+    .label {
+      font-size: 0.74rem;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      color: var(--text-muted);
+      margin-bottom: 4px;
+      font-weight: 600;
+    }
+
+    .bubble {
+      border-radius: 14px;
+      padding: 10px 12px;
+      margin-bottom: 8px;
+      transition: all 0.3s ease;
+    }
+
+    .bubble.user {
+      background: linear-gradient(135deg, rgba(59, 130, 246, 0.1), rgba(147, 197, 253, 0.15));
+      border: 1px solid rgba(59, 130, 246, 0.3);
+      color: var(--text-dark);
+      box-shadow: 0 4px 12px rgba(59, 130, 246, 0.15);
+    }
+
+    .bubble.bot {
+      background: linear-gradient(135deg, rgba(168, 85, 247, 0.1), rgba(192, 132, 252, 0.15));
+      border: 1px solid rgba(168, 85, 247, 0.3);
+      color: var(--text-dark);
+      box-shadow: 0 4px 12px rgba(168, 85, 247, 0.15);
+    }
+
+    .audio-player {
+      margin-top: 10px;
+      width: 100%;
+      border-radius: 999px;
+      filter: drop-shadow(0 4px 12px rgba(168, 85, 247, 0.15));
+    }
+
+    .history-list {
+      max-height: 290px;
+      overflow-y: auto;
+      padding-right: 4px;
+      font-size: 0.86rem;
+      display: flex;
+      flex-direction: column-reverse;
+      gap: 8px;
+    }
+
+    .history-list::-webkit-scrollbar {
+      width: 6px;
+    }
+
+    .history-list::-webkit-scrollbar-track {
+      background: rgba(148, 163, 184, 0.1);
+      border-radius: 10px;
+    }
+
+    .history-list::-webkit-scrollbar-thumb {
+      background: rgba(168, 85, 247, 0.3);
+      border-radius: 10px;
+    }
+
+    .history-list::-webkit-scrollbar-thumb:hover {
+      background: rgba(168, 85, 247, 0.5);
+    }
+
+    .history-item {
+      padding: 8px 10px;
+      border-radius: 14px;
+      background: rgba(255, 255, 255, 0.5);
+      border: 1px solid rgba(148, 163, 184, 0.2);
+      box-shadow: 0 4px 12px rgba(168, 85, 247, 0.08);
+      transition: all 0.3s ease;
+    }
+
+    .history-item:hover {
+      background: rgba(255, 255, 255, 0.7);
+      transform: translateX(4px);
+    }
+
+    .history-item strong {
+      color: var(--text-dark);
+      font-weight: 600;
+    }
+
+    .history-item small {
+      color: #9ca3af;
+      font-size: 0.7rem;
+    }
+
+    .history-item + .history-item {
+      margin-top: 2px;
+    }
+  </style>
+</head>
+<body>
+  <!-- Hero section -->
+  <div class="hero-section">
+    <nav class="nav-header">
+      <div class="nav-logo">
+        <div class="nav-logo-icon">S</div>
+        SahaYaa
+      </div>
+      <div class="nav-links">
+        <a href="#documentation">Documentation</a>
+        <a href="#howto">How to Use</a>
+        <a href="#privacy">Privacy Policy</a>
+      </div>
+      <a href="#chat" class="nav-cta">Early Access</a>
+    </nav>
+    <div class="hero-content">
+      <div class="flower-container">
+        <div class="flower">
+          <div class="petal"></div>
+          <div class="petal"></div>
+          <div class="petal"></div>
+          <div class="petal"></div>
+          <div class="petal"></div>
+          <div class="petal"></div>
+          <div class="petal"></div>
+          <div class="petal"></div>
+          <div class="flower-center"></div>
+        </div>
+      </div>
+      <div class="hero-text">
+        <h2 class="hero-headline">
+          Banking Made Simple,<br>
+          One Voice at a Time
+        </h2>
+        <p class="hero-subheadline">
+          SahaYaa brings secure multilingual voice banking to your fingertips.
+        </p>
+        <div class="hero-features">
+          <span>Multilingual</span>
+          <span>Secure</span>
+          <span>Intelligent</span>
+        </div>
+        <a href="#chat" class="hero-cta-button">Continue to Chat</a>
+        <div class="voice-indicator-hero">
+          <div class="voice-ring"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Chat section -->
+  <div class="chat-section" id="chat">
+    <div class="app-shell">
+      <div class="left">
+        <div>
+          <h1>
+            SahaYaa
+            <span class="badge">AI Voice Banking </span>
+          </h1>
+          <p class="subtitle">
+            Current Supported Languages: Hindi, Bengali, Marathi, Odia, Tamil, Telugu, and English.
+          </p>
+          <div class="pipeline-chip-row">
+            <div class="pipeline-chip"><span></span> Indic ASR</div>
+            <div class="pipeline-chip"><span></span> Rasa NLU & Policies</div>
+            <div class="pipeline-chip"><span></span> Secure Banking API</div>
+            <div class="pipeline-chip"><span></span> Multilingual TTS</div>
+          </div>
+        </div>
+        <div class="card card-subtle mic-wrapper">
+          <button class="mic-button" id="micButton">
+            <svg viewBox="0 0 24 24">
+              <path d="M12 14a3 3 0 0 0 3-3V5a3 3 0 0 0-6 0v6a3 3 0 0 0 3 3z"></path>
+              <path d="M19 11a1 1 0 0 0-2 0 5 5 0 0 1-10 0 1 1 0 0 0-2 0 7 7 0 0 0 6 6.92V21H9a1 1 0 0 0 0 2h6a1 1 0 0 0 0-2h-2v-3.08A7 7 0 0 0 19 11z"></path>
+            </svg>
+          </button>
+          <div class="mic-label" id="micLabel">Tap to start talking</div>
+          <div class="lang-select">
+            <span>LANG</span>
+            <select id="langSelect">
+              <option value="hi">Hindi</option>
+              <option value="bn">Bengali</option>
+              <option value="mr">Marathi</option>
+              <option value="or">Odia</option>
+              <option value="ta">Tamil</option>
+              <option value="te">Telugu</option>
+              <option value="en">English</option>
+            </select>
+          </div>
+          <div class="waveform">
+            <div class="bar" id="bar1"></div>
+            <div class="bar" id="bar2"></div>
+            <div class="bar" id="bar3"></div>
+            <div class="bar" id="bar4"></div>
+            <div class="bar" id="bar5"></div>
+          </div>
+          <div class="status" id="statusText">Ready.</div>
+          <div class="error" id="errorText"></div>
+        </div>
+        <div class="card transcript-block">
+          <div class="label">Current Turn</div>
+          <div class="bubble user" id="userBubble" style="display:none;"></div>
+          <div class="bubble bot" id="botBubble" style="display:none;"></div>
+          <audio id="botAudio" class="audio-player" controls style="display:none;"></audio>
+        </div>
+      </div>
+      <div class="right">
+        <div class="card">
+          <div class="label">Session History</div>
+          <div id="historyList" class="history-list"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // API base URL for backend
+    const API_BASE = "http://127.0.0.1:8002";
+
+    // DOM elements
+    const micButton   = document.getElementById("micButton");
+    const micLabel    = document.getElementById("micLabel");
+    const langSelect  = document.getElementById("langSelect");
+    const statusText  = document.getElementById("statusText");
+    const errorText   = document.getElementById("errorText");
+    const userBubble  = document.getElementById("userBubble");
+    const botBubble   = document.getElementById("botBubble");
+    const botAudio    = document.getElementById("botAudio");
+    const historyList = document.getElementById("historyList");
+
+    const bars = [
+      document.getElementById("bar1"),
+      document.getElementById("bar2"),
+      document.getElementById("bar3"),
+      document.getElementById("bar4"),
+      document.getElementById("bar5"),
+    ];
+
+    // Recording state
+    let mediaRecorder = null;
+    let audioChunks   = [];
+    let isRecording   = false;
+    let waveformTimer = null;
+
+    function setStatus(text) {
+      statusText.textContent = text;
+    }
+
+    function setError(text) {
+      errorText.textContent = text || "";
+    }
+
+    function startWaveAnimation() {
+      stopWaveAnimation();
+      waveformTimer = setInterval(() => {
+        bars.forEach(bar => {
+          const active = Math.random() > 0.4;
+          if (active) {
+            bar.classList.add("active");
+          } else {
+            bar.classList.remove("active");
+          }
+        });
+      }, 120);
+    }
+
+    function stopWaveAnimation() {
+      if (waveformTimer) {
+        clearInterval(waveformTimer);
+        waveformTimer = null;
+      }
+      bars.forEach(bar => bar.classList.remove("active"));
+    }
+
+    // Update UI with response from server
+    function updateUIWithResponse(data) {
+      const userText  = data.user_text || "";
+      const botText   = data.bot_text || "";
+      const audioPath = data.audio_file || data.audio_url || "";
+
+      if (userText) {
+        userBubble.style.display = "block";
+        userBubble.textContent = userText;
+      } else {
+        userBubble.style.display = "none";
+      }
+
+      if (botText) {
+        botBubble.style.display = "block";
+        botBubble.textContent = botText;
+      } else {
+        botBubble.style.display = "none";
+      }
+
+      if (audioPath) {
+        botAudio.style.display = "block";
+        let normalized = audioPath.replace(/\\/g, "/");
+        if (normalized.startsWith("http://") || normalized.startsWith("https://")) {
+          botAudio.src = normalized;
+        } else {
+          normalized = normalized.replace(/^\/+/, "");
+          botAudio.src = `${API_BASE}/${normalized}`;
+        }
+        botAudio.load();
+        botAudio.play().catch(() => {
+          // Autoplay may be blocked; ignore
+        });
+      } else {
+        botAudio.style.display = "none";
+      }
+
+      if (userText || botText) {
+        const item = document.createElement("div");
+        item.className = "history-item";
+        item.innerHTML = `
+          <div><strong>You:</strong> ${userText || "<em>(no text)</em>"}</div>
+          <div><strong>Bot:</strong> ${botText || "<em>(no text)</em>"}</div>
+          <small>${new Date().toLocaleTimeString()}</small>
+        `;
+        historyList.appendChild(item);
+      }
+    }
+
+    // Send audio to server
+    async function sendAudioToServer(blob, lang) {
+      const formData = new FormData();
+      formData.append("file", blob, "audio.webm");
+      formData.append("lang", lang);
+
+      setStatus("Processing your request…");
+      setError("");
+
+      try {
+        const resp = await fetch(`${API_BASE}/api/voice-query`, {
+          method: "POST",
+          body: formData,
+        });
+
+        if (!resp.ok) {
+          const text = await resp.text();
+          console.error("Server error:", resp.status, text);
+          throw new Error(`Server returned ${resp.status}`);
+        }
+
+        const data = await resp.json();
+        console.log("VOICE_API result:", data);
+        updateUIWithResponse(data);
+        setStatus("Ready.");
+      } catch (err) {
+        console.error("UI ERROR:", err);
+        setError("Something went wrong sending audio to the server.");
+        setStatus("Ready (error).");
+      }
+    }
+
+    // Start recording
+    async function startRecording() {
+      if (isRecording) return;
+
+      try {
+        const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
+
+        audioChunks = [];
+        const options = { mimeType: "audio/webm" };
+        mediaRecorder = new MediaRecorder(stream, options);
+
+        mediaRecorder.ondataavailable = (event) => {
+          if (event.data && event.data.size > 0) {
+            audioChunks.push(event.data);
+          }
+        };
+
+        mediaRecorder.onstop = () => {
+          stopWaveAnimation();
+          setStatus("Sending audio to server…");
+
+          const blob = new Blob(audioChunks, { type: "audio/webm" });
+          const lang = langSelect.value || "hi";
+          sendAudioToServer(blob, lang);
+
+          stream.getTracks().forEach(t => t.stop());
+        };
+
+        mediaRecorder.start();
+        isRecording = true;
+        micButton.classList.add("recording");
+        micLabel.textContent = "Tap to stop";
+        setStatus("Listening…");
+        setError("");
+        startWaveAnimation();
+      } catch (err) {
+        console.error("Could not start recording:", err);
+        setError("Microphone access failed. Check browser permissions.");
+        setStatus("Ready (no mic).");
+      }
+    }
+
+    // Stop recording
+    function stopRecording() {
+      if (!isRecording || !mediaRecorder) return;
+      isRecording = false;
+      micButton.classList.remove("recording");
+      micLabel.textContent = "Tap to start talking";
+      setStatus("Processing…");
+      mediaRecorder.stop();
+    }
+
+    micButton.addEventListener("click", () => {
+      if (!isRecording) {
+        startRecording();
+      } else {
+        stopRecording();
+      }
+    });
+
+    // Initial state
+    setStatus("Ready.");
+    setError("");
+  </script>
+</body>
+</html>
