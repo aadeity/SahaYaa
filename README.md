@@ -10,10 +10,6 @@
 [![FastAPI](https://img.shields.io/badge/FastAPI-0.104-009688?style=for-the-badge&logo=fastapi&logoColor=white)](https://fastapi.tiangolo.com/)
 [![PyTorch](https://img.shields.io/badge/PyTorch-2.1-EE4C2C?style=for-the-badge&logo=pytorch&logoColor=white)](https://pytorch.org/)
 
-[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg?style=for-the-badge)](https://opensource.org/licenses/MIT)
-[![GitHub stars](https://img.shields.io/github/stars/yourusername/sahayaa?style=for-the-badge)](https://github.com/yourusername/sahayaa/stargazers)
-[![GitHub issues](https://img.shields.io/github/issues/yourusername/sahayaa?style=for-the-badge)](https://github.com/yourusername/sahayaa/issues)
-[![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg?style=for-the-badge)](http://makeapullrequest.com)
 
 **[🚀 Live Demo](#-demo-video) • [📖 Documentation](#-getting-started) • [🎯 Features](#-features)**
 
