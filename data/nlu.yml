@@ -1,0 +1,268 @@
+version: "3.1"
+
+nlu:
+
+# 1. Balance check
+- intent: balance_check
+  examples: |
+    - मेरे अकाउंट में कितना बैलेंस है?
+    - अकाउंट बैलेंस बताओ
+    - बैलेंस चेक करो
+    - என் அக்கவுண்ட்ல எவ்வளவு இருக்குன்னு சொல்லு
+    - அக்கவுண்ட் பாலன்ஸ் என்ன
+    - என் பாங்க் பாலன்ஸ் சொல்லுங்க
+    - నా ఖాతాలో బ్యాలెన్స్ ఎంత ఉంది?
+    - బ్యాలెన్స్ చెక్ చేయి
+    - ఖాతా బ్యాలెన్స్ చెప్పు
+    - আমার অ্যাকাউন্টে কত টাকা আছে?
+    - ব্যালেন্স টা বলো
+    - অ্যাকাউন্ট ব্যালেন্স দেখাও
+    - माझ्या खात्यात किती बॅलन्स आहे?
+    - खाते बॅलन्स सांगा
+    - बॅलन्स चेक करा
+    - ମୋ ଆକାଉଣ୍ଟରେ କେତେ ବାଲାନ୍ସ ଅଛି?
+    - ବାଲାନ୍ସ ଦେଖାଅ
+    - ଆକାଉଣ୍ଟ ବାଲାନ୍ସ କହନ୍ତୁ
+    - What's my account balance?
+    - Check my balance
+    - How much money do I have?
+
+# 2. UPI transfer
+- intent: upi_transfer
+  examples: |
+    - मेरे भाई को [500](amount) रुपये UPI से भेज दो
+    - मम्मी को [200](amount) UPI ट्रांसफर करो
+    - [1000](amount) रूपये भेजना है UPI से
+    - [300](amount) रुपये भेजो
+    - [6000](amount) रुपये ट्रांसफर करो
+    - என் அம்மாவுக்கு [500](amount) ரூபாய் UPIல அனுப்பு
+    - நண்பனுக்கு [200](amount) ரூபாய் UPI மூலம் அனுப்பு
+    - [1000](amount) ரூபாய் UPI ட்ரான்ஸ்பர் பண்ணு
+    - నా అక్కకి [500](amount) UPI ద్వారా పంపు
+    - అమ్మకి [200](amount) రూపాయలు పంపించు
+    - [1000](amount) రుపాయలు UPI లో పంపు
+    - আমার দিদিকে ইউপিআই তে [৫০০](amount) টাকা পাঠাও
+    - বাবাকে [২০০](amount) টাকা ইউপিআই দিয়ে দাও
+    - ইউপিআই দিয়ে [১০০০](amount) টাকা ট্রান্সফার করো
+    - माझ्या बहिणीला [500](amount) रुपये UPI ने पाठव
+    - बाबांना [200](amount) रुपये ट्रान्सफर कर
+    - UPI ने [1000](amount) रुपये पाठव
+    - ମୋର ଦିଦିଙ୍କୁ [500](amount) ଟଙ୍କା UPI ରେ ପଠା
+    - ପିତାଙ୍କୁ [200](amount) ଟଙ୍କା UPI ରେ ଦେଅ
+    - [1000](amount) ଟଙ୍କା UPI ଟ୍ରାନ୍ସଫର କର
+    - Send [500](amount) rupees to my sister via UPI
+    - Transfer [200](amount) rupees to dad
+    - Make a UPI transfer of [1000](amount)
+
+# 3. Bill payment
+- intent: bill_payment
+  examples: |
+    - मेरा बिजली का बिल भर दो
+    - मोबाइल बिल पेमेंट कर दो
+    - गैस बिल जमा करो
+    - என்கிட்ட இருக்குற EB bill pay பண்ணு
+    - என்னோட phone bill கட்டு
+    - gas bill செலுத்துங்க
+    - నా కరెంట్ బిల్ చెల్లించు
+    - మొబైల్ బిల్ పేమెంట్ చెయ్యి
+    - గ్యాస్ బిల్ చెల్లించాలి
+    - আমার বিদ্যুতের বিল পরিশোধ করো
+    - মোবাইল বিল পে করো
+    - গ্যাস বিল দাও
+    - माझा वीज बिल भरा
+    - मोबाईल बिल पेमेंट करा
+    - गॅस बिल जमा करा
+    - ମୋର ବିଜୁଳି ବିଲ୍ ପେ କର
+    - ମୋବାଇଲ ବିଲ୍ ଦେଇଦିଅ
+    - ଗ୍ୟାସ ବିଲ୍ ଜମା କର
+    - Pay my electricity bill
+    - Pay my mobile bill
+
+# 4. Transaction history
+- intent: transaction_history
+  examples: |
+    - पिछले 5 लेनदेन दिखाओ
+    - मेरा ट्रांजैक्शन हिस्ट्री दिखाओ
+    - हाल के ट्रांजैक्शन बताओ
+    - என்னோட last 5 transactions காட்டுங்க
+    - transaction history வேணும்
+    - recent transactions சொல்லுங்க
+    - నా గత 5 లావాదేవీలు చూపు
+    - ట్రాన్సాక్షన్ హిస్టరీ ఇవ్వు
+    - రీసెంట్ ట్రాన్సాక్షన్లు చూపు
+    - আমার শেষ ৫টা লেনদেন দেখাও
+    - ট্রান্সাকশন হিস্ট্রি দাও
+    - সাম্প্রতিক লেনদেন দেখাও
+    - माझे शेवटचे 5 व्यवहार दाखवा
+    - व्यवहार इतिहास द्या
+    - रिसेंट ट्रान्झॅक्शन दाखवा
+    - ଶେଷ 5ଟି ଟ୍ରାନ୍ଜାକ୍ସନ୍ ଦେଖାଅ
+    - ମୋର ଟ୍ରାନ୍ଜାକ୍ସନ୍ ଇତିହାସ ଦେଖା
+    - ନୂଆ ଟ୍ରାନ୍ଜାକ୍ସନ୍ କଣ?
+    - Show my last 5 transactions
+
+# 5. Loan inquiry
+- intent: loan_inquiry
+  examples: |
+    - पर्सनल लोन चाहिए
+    - लोन के बारे में बताओ
+    - होम लोन रेट क्या है?
+    - எனக்கு personal loan வேணும்
+    - loan details சொல்லுங்க
+    - home loan rate என்ன?
+    - నాకు లోన్ కావాలి
+    - లోన్ వివరాలు చెప్పు
+    - హోమ్ లోన్ రేట్ ఎంత?
+    - আমার লোন দরকার
+    - লোন সম্পর্কে জানাও
+    - হোম লোন রেট কত?
+    - मला कर्ज हवे आहे
+    - कर्जाची माहिती द्या
+    - होम लोन रेट काय आहे?
+    - ମୋତେ loan ଦରକାର
+    - loan ବିଷୟରେ କହ
+    - home loan rate କେତେ?
+    - I want a personal loan
+
+# 6. Credit limit
+- intent: credit_limit
+  examples: |
+    - मेरा क्रेडिट लिमिट क्या है?
+    - कार्ड लिमिट दिखाओ
+    - என் credit card limit என்ன?
+    - card limit காட்டுங்க
+    - నా క్రెడిట్ లిమిట్ ఎంత?
+    - కార్డ్ లిమిట్ చూపు
+    - আমার ক্রেডিট লিমিট কত?
+    - কার্ড লিমিট দেখাও
+    - माझी क्रेडिट लिमिट किती आहे?
+    - कार्ड लिमिट दाखवा
+    - ମୋର credit limit କେତେ?
+    - କାର୍ଡ limit ଦେଖାଅ
+    - What's my credit limit?
+
+# 7. Reminder set
+- intent: reminder_set
+  examples: |
+    - मुझे बिल की याद दिलाना
+    - कल मुझे रिमाइंड करना
+    - भुगतान का रिमाइंडर सेट करो
+    - bill reminder வைங்க
+    - நாளைக்கு என்னை remind பண்ணுங்க
+    - payment reminder set பண்ணுங்க
+    - బిల్ రిమైండర్ పెట్టు
+    - నాకు రేపు గుర్తు చేయి
+    - আমাকে বিল রিমাইন্ডার দিও
+    - কাল আমাকে মনে করিয়ে দিও
+    - मला बिलची आठवण करून दे
+    - उद्या remind कर
+    - ମୋତେ ବିଲ୍ ରିମାଇଣ୍ଡ କର
+    - କାଲି ମୋତେ ମନେ କରାଇବ
+    - Set a reminder for me
+
+# 8. Greetings
+- intent: greet
+  examples: |
+    - hello
+    - hi
+    - namaste
+    - வணக்கம்
+    - নমস্কার
+    - నమస్తే
+    - ନମସ୍କାର
+
+# 9. Goodbye
+- intent: goodbye
+  examples: |
+    - bye
+    - good night
+    - thank you bye
+    - बाय
+    - टाटा
+    - வெரு வரேன்
+    - বাই বাই
+
+# 10. Out of scope
+- intent: out_of_scope
+  examples: |
+    - who are you
+    - sing a song
+    - tell me a 
+
+# Transfer money (for OTP flow)
+- intent: transfer_money
+  examples: |
+    - transfer [5000](amount) to [Riya](to_account)
+    - send [10000](amount) rupees to [my friend](to_account)
+    - I want to transfer [6000](amount) to [account](to_account)
+    - transfer [6000](amount) to [Riya](to_account)
+    - send [7500](amount) to [savings](to_account)
+    - pay [8000](amount) to [Amit](to_account)
+    - transfer [5500](amount)
+    - send [300](amount) to [Priya](to_account)
+    - transfer [12000](amount) rupees
+    - I need to send [9000](amount)
+    - transfer [15000](amount) to [my account](to_account)
+    - send [15000](amount) to [Riya's account](to_account)
+    - transfer [500](amount)
+    - send [1000](amount)
+    - [3000](amount) to [friend](to_account)
+    - transfer [20000](amount) to [mom](to_account)
+
+# OTP input
+- intent: provide_otp
+  examples: |
+    - 123456
+    - my OTP is 456789
+    - the code is 987654
+    - 321098
+    - one two three four five six
+    - 654321
+    - 777888
+    - 111222
+    - the OTP is 555666
+    - 999000
+
+# Rephrase / fallback
+- intent: ask_rephrase
+  examples: |
+    - what
+    - huh
+    - can you repeat that
+    - I didn't understand
+    - say that again
+    - pardon
+    - sorry what
+    - come again
+    - didn't catch that
+    - what did you say
+
+# Regex patterns
+- regex: amount
+  examples: |
+    - \d+
+    - [0-9]+
+    - \b\d{1,10}\b
+    - \d+\.\d+
+    - \d+\s*(?:hundred|thousand|lakh|crore)
+    - \d+\s*(?:सौ|हज़ार|लाख|करोड़)
+
+- regex: account
+  examples: |
+    - acct_\w+
+    - account_\w+
+    - savings|current|checking
+
+- lookup: common_amounts
+  examples: |
+    - 100
+    - 200
+    - 300
+    - 500
+    - 1000
+    - 2000
+    - 3000
+    - 5000
+    - 10000
+    - 15000
+    - 20000
