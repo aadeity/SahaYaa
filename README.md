@@ -15,7 +15,7 @@
 [![GitHub issues](https://img.shields.io/github/issues/yourusername/sahayaa?style=for-the-badge)](https://github.com/yourusername/sahayaa/issues)
 [![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg?style=for-the-badge)](http://makeapullrequest.com)
 
-**[🚀 Live Demo](#-demo-video) • [📖 Documentation](#-getting-started) • [🎯 Features](#-features) • [🤝 Contribute](#-contributing)**
+**[🚀 Live Demo](#-demo-video) • [📖 Documentation](#-getting-started) • [🎯 Features](#-features)**
 
 <img src="https://your-demo-gif-url.gif" alt="SahaYaa Demo" width="600px"/>
 
