@@ -1,0 +1,33 @@
+# endpoints.yml
+
+# Model server details (commented out)
+#models:
+#  url: http://my-server.com/models/default_core@latest
+#  wait_time_between_pulls: 10
+
+# Custom actions server URL
+action_endpoint:
+  url: "http://localhost:5055/webhook"
+
+# Tracker store configurations (commented out examples)
+#tracker_store:
+#  type: redis
+#  url: <redis-host>
+#  port: 6379
+#  db: 0
+#  password: <password>
+#  use_ssl: false
+
+#tracker_store:
+#  type: mongod
+#  url: mongodb://localhost:27017
+#  db: rasa
+#  username: <username>
+#  password: <password>
+
+# Event broker configuration (commented out)
+#event_broker:
+#  url: localhost
+#  username: username
+#  password: password
+#  queue: queue
