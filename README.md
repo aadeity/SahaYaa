@@ -162,3 +162,9 @@
 
 ### **Development Stack**
 
+Language: Python 3.10
+NLU Pipeline: RegexFeaturizer → DIETClassifier → TEDPolicy
+ASR Model: ai4bharat/indic-conformer-600m-multilingual
+Dialogue: Rasa 3.6 (Rule + ML policies)
+Server: Uvicorn (ASGI)
+Audio Format: WebM → WAV (16kHz mono)
