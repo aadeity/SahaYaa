@@ -1,0 +1,144 @@
+version: "3.1"
+
+intents:
+  - greet
+  - goodbye
+  - balance_check
+  - upi_transfer
+  - transfer_money
+  - bill_payment
+  - transaction_history
+  - loan_inquiry
+  - credit_limit
+  - reminder_set
+  - provide_otp
+  - out_of_scope
+  - ask_rephrase
+
+entities:
+  - amount
+  - to_account
+  - from_account
+  - account_id
+  - currency
+
+slots:
+  user_id:
+    type: text
+    influence_conversation: false
+    mappings:
+      - type: custom
+
+  account_id:
+    type: text
+    influence_conversation: false
+    mappings:
+      - type: custom
+
+  from_account:
+    type: text
+    influence_conversation: false
+    mappings:
+      - type: custom
+
+  to_account:
+    type: text
+    influence_conversation: false
+    mappings:
+      - type: custom
+
+  amount:
+    type: float
+    influence_conversation: false
+    mappings:
+      - type: from_entity
+        entity: amount
+      - type: custom  # fallback if entity extraction misses it
+
+  currency:
+    type: text
+    initial_value: "INR"
+    influence_conversation: false
+    mappings:
+      - type: custom
+
+  last_tx_id:
+    type: text
+    influence_conversation: false
+    mappings:
+      - type: custom
+
+  last_tx_token:
+    type: text
+    influence_conversation: false
+    mappings:
+      - type: custom
+
+  otp_verified:
+    type: bool
+    initial_value: false
+    influence_conversation: true
+    mappings:
+      - type: custom
+
+  awaiting_otp:
+    type: bool
+    initial_value: false
+    influence_conversation: true
+    mappings:
+      - type: custom
+
+  pending_transfer_amount:
+    type: float
+    initial_value: null
+    influence_conversation: false
+    mappings:
+      - type: custom
+
+  pending_transfer_from:
+    type: text
+    initial_value: null
+    influence_conversation: false
+    mappings:
+      - type: custom
+
+  pending_transfer_to:
+    type: text
+    initial_value: null
+    influence_conversation: false
+    mappings:
+      - type: custom
+
+  pending_transfer_currency:
+    type: text
+    initial_value: null
+    influence_conversation: false
+    mappings:
+      - type: custom
+
+responses:
+  utter_greet:
+    - text: "Namaste, I'm SahaYaa, your voice banking assistant. How can I help you today?"
+
+  utter_goodbye:
+    - text: "Thanks for banking with us. Goodbye!"
+
+  utter_out_of_scope:
+    - text: "I'm not able to help with that yet. You can ask me about balance, transfers, bills, loans, and reminders."
+
+  utter_ask_rephrase:
+    - text: "I couldn't quite catch that. Could you please say it again in a different way?"
+
+actions:
+  - action_check_balance
+  - action_make_transfer
+  - action_get_transactions
+  - action_pay_bill
+  - action_loan_info
+  - action_credit_limit
+  - action_set_reminder
+  - action_verify_otp
+
+session_config:
+  session_expiration_time: 60
+  carry_over_slots_to_new_session: true
