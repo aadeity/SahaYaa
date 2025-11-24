@@ -1,0 +1,53 @@
+version: "3.1"
+
+stories:
+
+  # 1. Greet then check balance 
+  - story: greet then check balance
+    steps:
+      - intent: greet
+      - action: utter_greet
+      - intent: balance_check
+      - action: action_check_balance
+
+  # 2. Direct balance check
+  - story: direct balance check
+    steps:
+      - intent: balance_check
+      - action: action_check_balance
+
+  # 3. UPI transfer flow
+  - story: upi transfer via voice
+    steps:
+      - intent: upi_transfer
+      - action: action_make_transfer
+
+  # 4. View recent transactions
+  - story: view recent transactions
+    steps:
+      - intent: transaction_history
+      - action: action_get_transactions
+
+  # 5. Bill payment flow 
+  - story: bill payment flow
+    steps:
+      - intent: bill_payment
+      - action: action_pay_bill
+
+  - story: transfer with OTP verification
+    steps:
+      - intent: transfer_money
+        entities:
+          - amount: 6000
+          - to_account: "Riya"
+
+      - action: action_make_transfer
+      - slot_was_set:
+          - awaiting_otp: true
+
+      - intent: provide_otp
+      - action: action_verify_otp
+      - slot_was_set:
+          - otp_verified: true
+
+      - action: action_make_transfer
