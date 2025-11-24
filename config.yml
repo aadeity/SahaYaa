@@ -1,0 +1,55 @@
+version: "3.1"
+
+# Language
+language: "en"
+
+# NLU pipeline
+pipeline:
+  - name: WhitespaceTokenizer
+
+  - name: RegexFeaturizer
+  - name: LexicalSyntacticFeaturizer
+
+  - name: CountVectorsFeaturizer
+    analyzer: word
+    min_ngram: 1
+    max_ngram: 2
+
+  - name: CountVectorsFeaturizer
+    analyzer: char_wb
+    min_ngram: 1
+    max_ngram: 4
+
+  - name: DIETClassifier
+    epochs: 100
+    constrain_similarities: true
+    entity_recognition: true
+    use_masked_language_model: false
+    random_seed: 42
+
+  - name: RegexEntityExtractor
+    case_sensitive: false
+    use_lookup_tables: true
+    use_regexes: true
+
+  - name: EntitySynonymMapper
+
+  - name: FallbackClassifier
+    threshold: 0.7
+    ambiguity_threshold: 0.1
+
+# Policies
+policies:
+  - name: RulePolicy
+    core_fallback_threshold: 0.3
+    core_fallback_action_name: "utter_ask_rephrase"
+
+  - name: TEDPolicy
+    max_history: 5
+    epochs: 100
+    constrain_similarities: true
+
+  - name: MemoizationPolicy
+    max_history: 3
+
+assistant_id: sahayaa_banking_assistant
